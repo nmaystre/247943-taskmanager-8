@@ -2,33 +2,34 @@
 
 let filterLabel;
 let filterValue;
-let filterData = [{
+let filterData = [
+  {
     label: `all`,
-    value: `22`
+    value: `22`,
   },
   {
     label: `overdue`,
-    value: `1`
+    value: `1`,
   },
   {
     label: `today`,
-    value: `5`
+    value: `5`,
   },
   {
     label: `favorites`,
-    value: `12`
+    value: `12`,
   },
   {
     label: `repeating`,
-    value: `12`
+    value: `12`,
   },
   {
     label: `tags`,
-    value: `2`
+    value: `2`,
   },
   {
     label: `archive"`,
-    value: `0`
+    value: `0`,
   },
 ];
 
