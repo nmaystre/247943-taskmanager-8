@@ -1,4 +1,4 @@
-`use strict`
+'use strict';
 
 let filterLabel;
 let filterValue;
@@ -154,11 +154,11 @@ This is example of new task, you can add picture, set date and time, add tags.</
 </article>
 `;
 
-const filtersContainer = document.querySelector('.filter');
-const cardsContainer = document.querySelector('.board__tasks');
+const filtersContainer = document.querySelector(`.filter`);
+const cardsContainer = document.querySelector(`.board__tasks`);
 
 const appendElement = (node, element) => {
-  node.insertAdjacentHTML('beforeend', element);
+  node.insertAdjacentHTML(`beforeend`, element);
 };
 
 for (let i = 0; i < filterData.length; i++) {
@@ -186,5 +186,3 @@ for (let i = 0; i < filterData.length; i++) {
 for (let i = 0; i < 7; i++) {
   appendElement(cardsContainer, templateCard);
 }
-
-//
