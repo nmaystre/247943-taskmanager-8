@@ -184,3 +184,5 @@ for (let i = 0; i < filterData.length; i++) {
 for (let i = 0; i < 7; i++) {
   appendElement(cardsContainer, templateCard);
 }
+
+//
