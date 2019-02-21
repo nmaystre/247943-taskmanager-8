@@ -1,3 +1,5 @@
+`use strict`
+
 let filterLabel;
 let filterValue;
 let filterData = [{
