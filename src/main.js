@@ -1,39 +1,55 @@
 'use strict';
 
-let filterLabel;
-let filterValue;
-let filterData = [
+const filterData = [
   {
     label: `all`,
-    value: `22`,
+    value: 22,
   },
   {
     label: `overdue`,
-    value: `1`,
+    value: 1,
   },
   {
     label: `today`,
-    value: `5`,
+    value: 5,
   },
   {
     label: `favorites`,
-    value: `12`,
+    value: 12,
   },
   {
     label: `repeating`,
-    value: `12`,
+    value: 12,
   },
   {
     label: `tags`,
-    value: `2`,
+    value: 2,
   },
   {
-    label: `archive"`,
-    value: `0`,
+    label: `archive`,
+    value: 0,
   },
 ];
 
-let modificators = `card--edit card--black`;
+const filtersContainer = document.querySelector(`.filter`);
+const cardsContainer = document.querySelector(`.board__tasks`);
+
+const appendElement = (node, element) => {
+  node.insertAdjacentHTML('beforeend', element);
+};
+
+for (let i = 0; i < filterData.length; i++) {
+  let filterLabel = filterData[i].label;
+  let filterValue = filterData[i].value;
+
+  const templateFilter = `
+    <input type="radio" id="filter__${filterLabel}" class="filter__input visually-hidden" name="filter" />
+    <label for="filter__${filterLabel}" class="filter__label">${filterLabel} <span class="filter__${filterLabel}-count">${filterValue}</span></label>
+    `;
+  appendElement(filtersContainer, templateFilter);
+}
+
+const modificators = `card--edit card--black`;
 const templateCard = `
 <article class="card ${modificators}">
 <form class="card__form" method="get">
@@ -152,38 +168,24 @@ This is example of new task, you can add picture, set date and time, add tags.</
     </div>
   </div>
 </form>
-</article>
-`;
-
-const filtersContainer = document.querySelector(`.filter`);
-const cardsContainer = document.querySelector(`.board__tasks`);
-
-const appendElement = (node, element) => {
-  node.insertAdjacentHTML(`beforeend`, element);
-};
-
-for (let i = 0; i < filterData.length; i++) {
-  filterLabel = filterData[i].label;
-  filterValue = filterData[i].value;
-
-  // как правильно было вынести эту переменную? Если я размещала template string в глобальной зоне видимости, все значения let были undefined.
-  // завернуть в функцию?
-  const templateFilter = `
-    <input type="radio" id="filter__${filterLabel}" class="filter__input visually-hidden" name="filter" />
-    <label for="filter__${filterLabel}" class="filter__label">${filterLabel} <span class="filter__${filterLabel}-count">${filterValue}</span></label>
-    `;
-  appendElement(filtersContainer, templateFilter);
-}
-
-// как лучше добавлять отслеживание события для динамически добавляемых элементов?
-// Я нашла что-то про mutation observer, но кажется это слишком сложно
-
-// Можно было бы добавлять node элемент, потом навешивать на него eventListener и потом запихивать innerhtml
-// но это ведь противоречит заданию
-
-// еще конечно можно навесить отслеживание клика на родителя и потом проверять цель клика,
-// но как тогда выделить именно article, а не один из внетренних элементов?
+</article>`;
 
 for (let i = 0; i < 7; i++) {
   appendElement(cardsContainer, templateCard);
 }
+
+const getRandomNumber = (min, max) => {
+  return Math.random() * (max - min) + min;
+};
+
+filtersContainer.addEventListener('click', e => {
+  if (e.target.classList.contains('filter__label')) {
+    e.stopPropagation();
+    const randomNumber = getRandomNumber(0, 20);
+    cardsContainer.innerHTML = '';
+
+    for (let i = 0; i < randomNumber; i++) {
+      appendElement(cardsContainer, templateCard);
+    }
+  }
+});
