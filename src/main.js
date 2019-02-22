@@ -35,7 +35,7 @@ const filtersContainer = document.querySelector(`.filter`);
 const cardsContainer = document.querySelector(`.board__tasks`);
 
 const appendElement = (node, element) => {
-  node.insertAdjacentHTML('beforeend', element);
+  node.insertAdjacentHTML(`beforeend`, element);
 };
 
 for (let i = 0; i < filterData.length; i++) {
@@ -178,11 +178,11 @@ const getRandomNumber = (min, max) => {
   return Math.random() * (max - min) + min;
 };
 
-filtersContainer.addEventListener('click', e => {
-  if (e.target.classList.contains('filter__label')) {
+filtersContainer.addEventListener(`click`, e => {
+  if (e.target.classList.contains(`filter__label`)) {
     e.stopPropagation();
     const randomNumber = getRandomNumber(0, 20);
-    cardsContainer.innerHTML = '';
+    cardsContainer.innerHTML = ``;
 
     for (let i = 0; i < randomNumber; i++) {
       appendElement(cardsContainer, templateCard);
