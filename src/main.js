@@ -178,7 +178,7 @@ const getRandomNumber = (min, max) => {
   return Math.random() * (max - min) + min;
 };
 
-filtersContainer.addEventListener(`click`, e => {
+filtersContainer.addEventListener(`click`, (e) => {
   if (e.target.classList.contains(`filter__label`)) {
     e.stopPropagation();
     const randomNumber = getRandomNumber(0, 20);
