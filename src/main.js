@@ -31,24 +31,6 @@ const filterData = [
   },
 ];
 
-const filtersContainer = document.querySelector(`.filter`);
-const cardsContainer = document.querySelector(`.board__tasks`);
-
-const appendElement = (node, element) => {
-  node.insertAdjacentHTML(`beforeend`, element);
-};
-
-for (let i = 0; i < filterData.length; i++) {
-  let filterLabel = filterData[i].label;
-  let filterValue = filterData[i].value;
-
-  const templateFilter = `
-    <input type="radio" id="filter__${filterLabel}" class="filter__input visually-hidden" name="filter" />
-    <label for="filter__${filterLabel}" class="filter__label">${filterLabel} <span class="filter__${filterLabel}-count">${filterValue}</span></label>
-    `;
-  appendElement(filtersContainer, templateFilter);
-}
-
 const modificators = `card--edit card--black`;
 const templateCard = `
 <article class="card ${modificators}">
@@ -170,22 +152,42 @@ This is example of new task, you can add picture, set date and time, add tags.</
 </form>
 </article>`;
 
-for (let i = 0; i < 7; i++) {
-  appendElement(cardsContainer, templateCard);
-}
+const filtersContainer = document.querySelector(`.filter`);
+const cardsContainer = document.querySelector(`.board__tasks`);
+
+const appendElement = (node, element) => {
+  node.insertAdjacentHTML(`beforeend`, element);
+};
+const generateCards = (iterations) => {
+  for (let i = 0; i < iterations; i++) {
+    appendElement(cardsContainer, templateCard);
+  }
+};
+
+const generateFilters = (iterations) => {
+  for (let j = 0; j < iterations; j++) {
+    const filterLabel = filterData[j].label;
+    const filterValue = filterData[j].value;
+    const templateFilter = `
+    <input type="radio" id="filter__${filterLabel}" class="filter__input visually-hidden" name="filter" />
+    <label for="filter__${filterLabel}" class="filter__label">${filterLabel} <span class="filter__${filterLabel}-count">${filterValue}</span></label>
+    `;
+    appendElement(filtersContainer, templateFilter);
+  }
+};
 
 const getRandomNumber = (min, max) => {
   return Math.random() * (max - min) + min;
 };
 
-filtersContainer.addEventListener(`click`, (e) => {
-  if (e.target.classList.contains(`filter__label`)) {
-    e.stopPropagation();
-    const randomNumber = getRandomNumber(0, 20);
-    cardsContainer.innerHTML = ``;
+generateFilters(filterData.length);
+generateCards(7);
 
-    for (let i = 0; i < randomNumber; i++) {
-      appendElement(cardsContainer, templateCard);
-    }
+filtersContainer.addEventListener(`click`, (evt) => {
+  if (evt.target.classList.contains(`filter__label`)) {
+    evt.stopPropagation();
+    const randomNumber = getRandomNumber(0, 10);
+    cardsContainer.innerHTML = ``;
+    generateCards(randomNumber);
   }
 });
